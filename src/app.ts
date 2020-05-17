@@ -3,9 +3,6 @@ import * as cors from "cors";
 import * as helmet from "helmet";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
-import * as dotenv from "dotenv";
-
-dotenv.config({ path: "./env" });
 
 const app: express.Application = express();
 
