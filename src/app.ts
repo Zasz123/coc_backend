@@ -4,6 +4,11 @@ import * as helmet from "helmet";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
 
+import ErrorMiddleware from "./routes/middlewares/error/errorMiddlewares";
+import CustomError from "./routes/middlewares/error/customError";
+
+import rootController from "./routes/rootColtroller";
+
 const app: express.Application = express();
 
 app.use(cors());
@@ -16,10 +21,14 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.json({
-    name: "hello",
-  });
-});
+app.use("/", rootController);
+
+app.use(
+  (next: express.NextFunction, req: express.Request, res: express.Response) => {
+    next(new CustomError({ name: "Not_Found" }));
+  }
+);
+
+app.use(ErrorMiddleware);
 
 export default app;

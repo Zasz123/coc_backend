@@ -1,2 +1,36 @@
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
+
+import { User } from "../../../../../database/entity/User.model";
+import CustomError from "../../error/customError";
+
+const makeToken = async (next: NextFunction, req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        accountId: req.body.accountId,
+      },
+    });
+    if (user) {
+      const token: string = jwt.sign(
+        {
+          uid: user.id,
+          username: user.name,
+        },
+        String(process.env.JWT_SECRET)
+      );
+
+      res.json({
+        success: true,
+        error: false,
+        token,
+      });
+    } else {
+      throw new Error("Unhandled_Error");
+    }
+  } catch (error) {
+    next(new CustomError({ name: error.name }));
+  }
+};
+
+export default makeToken;

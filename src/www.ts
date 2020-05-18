@@ -6,13 +6,13 @@ dotenv.config();
 import dbConnection from "../database/connections";
 
 const startServer = async () => {
-  await dbConnection;
+  await dbConnection(true, true);
+
   const port = process.env.PORT || 3000;
-  app.set("port", port);
 
   const server = http.createServer(app);
 
-  server.listen(() => {
+  server.listen(port, () => {
     console.log(`Listening on ${port}`);
   });
 };
