@@ -4,10 +4,6 @@ const router = Router();
 
 import userController from "./controllers/user.controller";
 
-router.use("/user", (req, res) => {
-  res.json({
-    hello: "dsa",
-  });
-});
+router.use("/user", userController);
 
 export default router;

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import CustomError from "../../error/customError";
 import { User } from "../../../../../database/entity/User.model";
 
-const Login = async (next: NextFunction, req: Request, res: Response) => {
+const Login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await User.findOne({
       where: {

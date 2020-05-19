@@ -3,8 +3,9 @@ import CustomError from "../../error/customError";
 
 import { User } from "../../../../../database/entity/User.model";
 
-const Register = async (next: NextFunction, req: Request, res: Response) => {
+const Register = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.body);
     const createdUser = await User.create({
       accountId: req.body.accountId,
       password: req.body.password,

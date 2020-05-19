@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as path from "path";
 import * as cors from "cors";
 import * as helmet from "helmet";
 import * as logger from "morgan";
@@ -11,15 +12,19 @@ import rootController from "./routes/rootColtroller";
 
 const app: express.Application = express();
 
+const dir = path.join(__dirname, "../public");
+
 app.use(cors());
 app.use(logger("dev"));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: false,
   })
 );
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/", express.static(dir));
 
 app.use("/", rootController);
 

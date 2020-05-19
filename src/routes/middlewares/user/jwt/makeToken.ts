@@ -4,7 +4,7 @@ import * as jwt from "jsonwebtoken";
 import { User } from "../../../../../database/entity/User.model";
 import CustomError from "../../error/customError";
 
-const makeToken = async (next: NextFunction, req: Request, res: Response) => {
+const makeToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await User.findOne({
       where: {
