@@ -9,7 +9,7 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     res.locals.user = decoded;
     next();
   } catch (error) {
-    next(new CustomError({ name: "Unhandled_Error" }));
+    next(new CustomError({ name: "Not_User" }));
   }
 };
 

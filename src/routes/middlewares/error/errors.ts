@@ -13,6 +13,11 @@ const Errors: { [key in ErrorNames]: IError } = {
     code: 520,
     message: "뭔에러징;",
   },
+  Not_User: {
+    description: "not user",
+    code: 412,
+    message: "아이디 또는 비밀번호를 확인해주세요",
+  },
 };
 
 export default Errors;

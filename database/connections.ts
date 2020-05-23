@@ -1,13 +1,27 @@
-import { createConnection } from "typeorm";
-import ormConfig from "./config";
+import { Sequelize } from "sequelize-typescript";
 
-const connection = async (logging: boolean, synchronize: boolean) => {
-  await createConnection({
-    ...ormConfig,
-    logging,
-    synchronize,
-    entities: [__dirname + "/entity/*.model.ts"],
-  });
+const sequelize = new Sequelize({
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  dialect: "mysql",
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  define: {
+    charset: "utf8",
+  },
+  logging: true,
+});
+
+const connection = async (synchronize: boolean) => {
+  sequelize.addModels([__dirname + "/models/*.model.ts"]);
+  const connect = await sequelize.sync({ force: synchronize });
+
+  if (!connect) {
+    console.log("DB connect Error");
+  } else {
+    console.log("DB connect");
+  }
 };
 
 export default connection;

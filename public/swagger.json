@@ -9,6 +9,10 @@
     {
       "name": "user",
       "description": "user api"
+    },
+    {
+      "name": "location",
+      "description": "location api"
     }
   ],
   "servers": [
@@ -48,7 +52,21 @@
         },
         "responses": {
           "200": {
-            "description": "성공"
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "createdUser": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -84,9 +102,6 @@
                     "success": {
                       "type": "boolean"
                     },
-                    "error": {
-                      "type": "boolean"
-                    },
                     "token": {
                       "type": "string"
                     }
@@ -94,6 +109,159 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/location": {
+      "post": {
+        "tags": ["location"],
+        "summary": "위치 저장",
+        "requestBody": {
+          "description": "사용자의 위도, 경도를 저장",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "lon": {
+                    "type": "number"
+                  },
+                  "lat": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "createdLocation": {
+                      "$ref": "#/components/schemas/Location"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/location/my": {
+      "post": {
+        "tags": ["location"],
+        "summary": "내 경로 보기",
+        "requestBody": {
+          "description": "요청보낸 사용자의 경로 보기",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "location": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "longitude": {
+                            "type": "integer"
+                          },
+                          "latitude": {
+                            "type": "integer"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "longitude": {
+            "type": "integer"
+          },
+          "latitude": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "integer"
           }
         }
       }

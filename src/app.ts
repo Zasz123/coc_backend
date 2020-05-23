@@ -29,7 +29,7 @@ app.use("/", express.static(dir));
 app.use("/", rootController);
 
 app.use(
-  (next: express.NextFunction, req: express.Request, res: express.Response) => {
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
     next(new CustomError({ name: "Not_Found" }));
   }
 );

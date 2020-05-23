@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 
-import { User } from "../../../../../database/entity/User.model";
+import User from "../../../../../database/models/User.model";
 import CustomError from "../../error/customError";
 
 const makeToken = async (req: Request, res: Response, next: NextFunction) => {
@@ -22,7 +22,6 @@ const makeToken = async (req: Request, res: Response, next: NextFunction) => {
 
       res.json({
         success: true,
-        error: false,
         token,
       });
     } else {
