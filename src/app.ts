@@ -23,7 +23,7 @@ app.use(
     extended: false,
   })
 );
-app.use(express.static(path.join(__dirname, "public")));
+
 app.use("/", express.static(dir));
 
 app.use("/", rootController);
