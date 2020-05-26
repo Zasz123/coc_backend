@@ -34,6 +34,10 @@ export default class Location extends Model<Location> {
   @Column(DataType.DOUBLE)
   latitude!: number;
 
+  @AllowNull(false)
+  @Column(DataType.GEOMETRY("POINT"))
+  location!: string;
+
   @BelongsTo(() => User, {
     onDelete: "CASCADE",
   })

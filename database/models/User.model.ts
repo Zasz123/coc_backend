@@ -33,8 +33,8 @@ export default class User extends Model<User> {
   name!: string;
 
   @AllowNull(false)
-  @Column(DataType.BOOLEAN)
-  isUser!: boolean;
+  @Column(DataType.ENUM("normal", "confirmed", "shopkeeper"))
+  type!: "normal" | "confirmed" | "shopkeeper";
 
   @HasMany(() => Location)
   location?: Location[];

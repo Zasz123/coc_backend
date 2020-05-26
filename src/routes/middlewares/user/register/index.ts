@@ -9,7 +9,7 @@ const Register = async (req: Request, res: Response, next: NextFunction) => {
       accountId: req.body.accountId,
       password: req.body.password,
       name: req.body.name,
-      isUser: req.body.isUser,
+      type: req.body.type,
     });
 
     res.json({
@@ -19,7 +19,7 @@ const Register = async (req: Request, res: Response, next: NextFunction) => {
   } catch (error) {
     console.log(error);
 
-    next(new CustomError({ name: "Unhandled_Error" }));
+    next(new CustomError({ name: "Database_Error" }));
   }
 };
 

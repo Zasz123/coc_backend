@@ -28,7 +28,7 @@ const makeToken = async (req: Request, res: Response, next: NextFunction) => {
       throw new Error("Unhandled_Error");
     }
   } catch (error) {
-    next(new CustomError({ name: error.name }));
+    next(new CustomError({ name: "Database_Error" }));
   }
 };
 

@@ -42,8 +42,8 @@
                   "name": {
                     "type": "string"
                   },
-                  "isUser": {
-                    "type": "boolean"
+                  "type": {
+                    "type": "string"
                   }
                 }
               }
@@ -126,11 +126,11 @@
                   "token": {
                     "type": "string"
                   },
-                  "lon": {
-                    "type": "number"
+                  "longitude": {
+                    "type": "integer"
                   },
-                  "lat": {
-                    "type": "number"
+                  "latitude": {
+                    "type": "integer"
                   }
                 }
               }
@@ -232,6 +232,9 @@
             "type": "string"
           },
           "name": {
+            "type": "string"
+          },
+          "type": {
             "type": "string"
           },
           "createdAt": {
