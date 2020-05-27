@@ -24,24 +24,24 @@ const showMyLocation = async (
     });
 
     if (!data) {
-      throw new Error("Database_Error");
+      next(new CustomError({ name: "Not_User" }));
+    } else {
+      res.json({
+        success: true,
+        user: {
+          id: data.id,
+          accountId: data.accountId,
+          password: data.password,
+          name: data.name,
+          isUser: data.isUser,
+          createdAt: data.createdAt,
+          updatedAt: data.updatedAt,
+        },
+        location: data.location,
+      });
     }
-
-    res.json({
-      success: true,
-      user: {
-        id: data.id,
-        accountId: data.accountId,
-        password: data.password,
-        name: data.name,
-        isUser: data.isUser,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
-      },
-      location: data.location,
-    });
   } catch (error) {
-    next(new CustomError({ name: "Unhandled_Error" }));
+    next(new CustomError({ name: "Database_Error" }));
   }
 };
 

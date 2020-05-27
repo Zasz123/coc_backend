@@ -19,7 +19,7 @@ const Register = async (req: Request, res: Response, next: NextFunction) => {
   } catch (error) {
     console.log(error);
 
-    next(new CustomError({ name: "Unhandled_Error" }));
+    next(new CustomError({ name: "Database_Error" }));
   }
 };
 

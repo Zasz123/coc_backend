@@ -258,10 +258,10 @@
             "type": "integer"
           },
           "createdAt": {
-            "type": "integer"
+            "type": "string"
           },
           "updatedAt": {
-            "type": "integer"
+            "type": "string"
           }
         }
       }

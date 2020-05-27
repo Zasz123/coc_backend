@@ -21,7 +21,7 @@ const Login = async (req: Request, res: Response, next: NextFunction) => {
       next();
     }
   } catch (error) {
-    next(new CustomError({ name: error.name }));
+    next(new CustomError({ name: "Database_Error" }));
   }
 };
 
