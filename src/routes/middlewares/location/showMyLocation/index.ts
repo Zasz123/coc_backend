@@ -14,7 +14,7 @@ const showMyLocation = async (
     const data = await User.findOne({
       include: [
         {
-          attributes: ["id", "longitude", "latitude", "createdAt"],
+          attributes: ["id", "location", "createdAt"],
           model: Location,
         },
       ],
@@ -33,7 +33,7 @@ const showMyLocation = async (
           accountId: data.accountId,
           password: data.password,
           name: data.name,
-          isUser: data.isUser,
+          type: data.type,
           createdAt: data.createdAt,
           updatedAt: data.updatedAt,
         },

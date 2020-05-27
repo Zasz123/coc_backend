@@ -9,7 +9,7 @@ const Register = async (req: Request, res: Response, next: NextFunction) => {
       accountId: req.body.accountId,
       password: req.body.password,
       name: req.body.name,
-      isUser: req.body.isUser,
+      type: req.body.type,
     });
 
     res.json({

@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
   define: {
     charset: "utf8",
   },
-  logging: true,
+  // logging: true,
 });
 
 const connection = async (synchronize: boolean) => {

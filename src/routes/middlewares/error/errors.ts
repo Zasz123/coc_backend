@@ -23,6 +23,11 @@ const Errors: { [key in ErrorNames]: IError } = {
     code: 412,
     message: "아이디 또는 비밀번호를 확인해주세요",
   },
+  Database_Error: {
+    description: "database error",
+    code: 520,
+    message: "데이터베이스 에러",
+  },
 };
 
 export default Errors;
