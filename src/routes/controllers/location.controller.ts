@@ -6,8 +6,9 @@ import VerifyToken from "../middlewares/user/jwt/verifyToken";
 
 import InsertLocation from "../middlewares/location/insertLocation";
 import ShowMyLocation from "../middlewares/location/showMyLocation";
+import CheckLocation from "../middlewares/location/locationCheck";
 
+router.post("/", VerifyToken, CheckLocation, InsertLocation);
 router.post("/my", VerifyToken, ShowMyLocation);
-router.post("/", VerifyToken, InsertLocation);
 
 export default router;
