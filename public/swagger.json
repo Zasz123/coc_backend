@@ -143,6 +143,25 @@
                     },
                     "createdLocation": {
                       "$ref": "#/components/schemas/Location"
+                    },
+                    "overlapLocation": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "longitude": {
+                            "type": "integer"
+                          },
+                          "latitude": {
+                            "type": "integer"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   }
                 }

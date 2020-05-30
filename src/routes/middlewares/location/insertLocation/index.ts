@@ -11,8 +11,6 @@ const InsertLocation = async (
   const user = res.locals.user;
   const { longitude, latitude } = req.body;
   try {
-    console.log(overlapLocations);
-
     const createdLocation = await Location.create({
       userId: user.uid,
       longitude,
@@ -25,6 +23,7 @@ const InsertLocation = async (
       overlapLocations,
     });
   } catch (error) {
+    console.log(error);
     next(new CustomError({ name: "Database_Error" }));
   }
 };

@@ -11,8 +11,8 @@ const LocationCheck = async (
 ) => {
   const { longitude, latitude } = req.body;
   try {
-    const overlapLocation = await Location.findAll({
-      attributes: ["id", "longitude", "latitude"],
+    const overlapLocations = await Location.findAll({
+      attributes: ["id", "longitude", "latitude", "createdAt"],
       where: where(
         literal(
           `6371 * acos(cos(radians(${latitude})) * cos(radians(latitude)) * cos(radians(${longitude}) - radians(longitude)) + sin(radians(${latitude})) * sin(radians(latitude)))`
@@ -26,11 +26,12 @@ const LocationCheck = async (
           where: {
             type: "confiremd",
           },
+          attributes: ["id"],
         },
       ],
     });
 
-    next(overlapLocation);
+    next(overlapLocations);
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));
   }

@@ -10,9 +10,9 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     if (error.name === "JsonWebTokenError") {
-      next(new CustomError({ name: "Token_Not_Valid" }));
+      return next(new CustomError({ name: "Token_Not_Valid" }));
     }
-    next(new CustomError({ name: "Not_User" }));
+    return next(new CustomError({ name: "Not_User" }));
   }
 };
 
