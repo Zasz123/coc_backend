@@ -37,7 +37,9 @@
                     "type": "string"
                   },
                   "type": {
-                    "type": "string"
+                    "format": "string",
+                    "enum": ["normal", "confiremd", "shopkeeper"],
+                    "type": "integer"
                   }
                 }
               }
@@ -177,27 +179,27 @@
                     "createdLocation": {
                       "$ref": "#/components/schemas/Location"
                     },
-                    "overlapLocation": {
+                    "overlapUsers": {
                       "type": "array",
                       "items": {
                         "properties": {
                           "id": {
                             "type": "integer"
                           },
-                          "longitude": {
-                            "type": "integer"
-                          },
-                          "latitude": {
-                            "type": "integer"
-                          },
-                          "createdAt": {
-                            "type": "string"
-                          },
-                          "user": {
+                          "location": {
                             "type": "object",
                             "properties": {
                               "id": {
                                 "type": "integer"
+                              },
+                              "longitude": {
+                                "type": "integer"
+                              },
+                              "latitude": {
+                                "type": "integer"
+                              },
+                              "createdAt": {
+                                "type": "string"
                               }
                             }
                           }
@@ -325,10 +327,14 @@
     }
   },
   "definitions": {
-    "type": {
-      "type": "string",
-      "enum": {
-        "&ENUM": ["normal", "confiremd", "shopkeeper"]
+    "Type": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": {
+            "&ENUM": ["normal", "confiremd", "shopkeeper"]
+          }
+        }
       }
     }
   }
