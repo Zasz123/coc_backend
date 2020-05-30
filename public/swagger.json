@@ -16,7 +16,7 @@
     }
   ],
   "paths": {
-    "/api/user/register": {
+    "/user/register": {
       "post": {
         "tags": ["user"],
         "summary": "회원가입",
@@ -65,7 +65,7 @@
         }
       }
     },
-    "/api/user/login": {
+    "/user/login": {
       "post": {
         "tags": ["user"],
         "summary": "로그인",
@@ -107,7 +107,7 @@
         }
       }
     },
-    "/api/location": {
+    "/location": {
       "post": {
         "tags": ["location"],
         "summary": "위치 저장",
@@ -152,7 +152,7 @@
         }
       }
     },
-    "/api/location/my": {
+    "/location/my": {
       "post": {
         "tags": ["location"],
         "summary": "내 경로 보기",

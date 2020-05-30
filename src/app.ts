@@ -26,7 +26,7 @@ app.use(
 
 app.use("/", express.static(dir));
 
-app.use("/api", rootController);
+app.use("/", rootController);
 
 app.use(
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
