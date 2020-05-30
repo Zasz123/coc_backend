@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import * as bcrypt from "bcrypt";
 
 import User from "../../../../../database/models/User.model";
 import CustomError from "../../error/customError";
@@ -16,14 +15,6 @@ const makeToken = async (req: Request, res: Response, next: NextFunction) => {
     if (user === null) {
       next(new CustomError({ name: "Not_User" }));
     } else {
-      const checkPassword = await bcrypt.compare(
-        req.body.password,
-        user.password
-      );
-      if (!checkPassword) {
-        next(new CustomError({ name: "Not_User" }));
-      }
-
       const token: string = jwt.sign(
         {
           uid: user.id,
