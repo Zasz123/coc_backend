@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import CustomError from "../../error/customError";
+import * as bcrypt from "bcrypt";
 
 import User from "../../../../../database/models/User.model";
 
 const Register = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const hasedPassword = await bcrypt.hash(req.body.password, 10);
     const createdUser = await User.create({
       accountId: req.body.accountId,
-      password: req.body.password,
+      password: hasedPassword,
       name: req.body.name,
       type: req.body.type,
     });

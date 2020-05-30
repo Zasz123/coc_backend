@@ -15,14 +15,8 @@
       "description": "location api"
     }
   ],
-  "servers": [
-    {
-      "description": "coc",
-      "url": "http://localhost:3000"
-    }
-  ],
   "paths": {
-    "/user/register": {
+    "/api/user/register": {
       "post": {
         "tags": ["user"],
         "summary": "회원가입",
@@ -71,7 +65,7 @@
         }
       }
     },
-    "/user/login": {
+    "/api/user/login": {
       "post": {
         "tags": ["user"],
         "summary": "로그인",
@@ -113,7 +107,7 @@
         }
       }
     },
-    "/location": {
+    "/api/location": {
       "post": {
         "tags": ["location"],
         "summary": "위치 저장",
@@ -158,7 +152,7 @@
         }
       }
     },
-    "/location/my": {
+    "/api/location/my": {
       "post": {
         "tags": ["location"],
         "summary": "내 경로 보기",
