@@ -11,22 +11,25 @@ const LocationCheck = async (
 ) => {
   const { longitude, latitude } = req.body;
   try {
-    const overlapLocations = await Location.findAll({
-      attributes: ["id", "longitude", "latitude", "createdAt"],
-      where: where(
-        literal(
-          `6371 * acos(cos(radians(${latitude})) * cos(radians(latitude)) * cos(radians(${longitude}) - radians(longitude)) + sin(radians(${latitude})) * sin(radians(latitude)))`
-        ),
-        "<=",
-        "5"
-      ),
+    const overlapLocations = await User.findAll({
+      where: {
+        type: "confirmed",
+        id: {
+          [Op.not]: res.locals.user.uid,
+        },
+      },
+      attributes: ["id"],
       include: [
         {
-          model: User,
-          where: {
-            type: "confiremd",
-          },
-          attributes: ["id"],
+          model: Location,
+          attributes: ["id", "longitude", "latitude", "createdAt"],
+          where: where(
+            literal(
+              `6371 * acos(cos(radians(${latitude})) * cos(radians(latitude)) * cos(radians(${longitude}) - radians(longitude)) + sin(radians(${latitude})) * sin(radians(latitude)))`
+            ),
+            "<=",
+            "5"
+          ),
         },
       ],
     });

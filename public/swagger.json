@@ -107,6 +107,39 @@
         }
       }
     },
+    "/user/update": {
+      "patch": {
+        "tags": ["user"],
+        "summary": "정보 업데이트",
+        "requestBody": {
+          "description": "사용자의 정보 업데이트",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "accountId": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["normal", "confiremd", "shopkeeper"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/location": {
       "post": {
         "tags": ["location"],
@@ -159,6 +192,14 @@
                           },
                           "createdAt": {
                             "type": "string"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              }
+                            }
                           }
                         }
                       }
@@ -280,6 +321,14 @@
             "type": "string"
           }
         }
+      }
+    }
+  },
+  "definitions": {
+    "type": {
+      "type": "string",
+      "enum": {
+        "&ENUM": ["normal", "confiremd", "shopkeeper"]
       }
     }
   }

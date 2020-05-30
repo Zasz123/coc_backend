@@ -3,7 +3,7 @@ import CustomError from "../../error/customError";
 import Location from "../../../../../database/models/Location.model";
 
 const InsertLocation = async (
-  overlapLocations: any,
+  overlapUsers: any,
   req: Request,
   res: Response,
   next: NextFunction
@@ -20,7 +20,7 @@ const InsertLocation = async (
     res.json({
       success: true,
       createdLocation,
-      overlapLocations,
+      overlapUsers,
     });
   } catch (error) {
     console.log(error);
