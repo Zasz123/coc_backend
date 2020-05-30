@@ -6,13 +6,13 @@ import CustomError from "../../error/customError";
 
 const makeToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await User.findOne({
+    const user: User | null = await User.findOne({
       where: {
         accountId: req.body.accountId,
       },
     });
 
-    if (user === null) {
+    if (!user) {
       next(new CustomError({ name: "Not_User" }));
     } else {
       const token: string = jwt.sign(

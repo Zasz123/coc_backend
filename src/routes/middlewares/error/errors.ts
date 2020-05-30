@@ -23,6 +23,16 @@ const Errors: { [key in ErrorNames]: IError } = {
     code: 412,
     message: "아이디 또는 비밀번호를 확인해주세요",
   },
+  Token_Not_Valid: {
+    description: "토큰이 없습니다.",
+    code: 401,
+    message: "토큰이 없음 수고",
+  },
+  Invalid_Body: {
+    description: "요청 바디에 문제가 있습니다.",
+    code: 422,
+    message: "요청 바디를 확인해주세요.",
+  },
 };
 
 export default Errors;

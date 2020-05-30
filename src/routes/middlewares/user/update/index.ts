@@ -18,7 +18,6 @@ const UpdateInfo = async (req: Request, res: Response, next: NextFunction) => {
       updatedUser,
     });
   } catch (error) {
-    console.log(error);
     next(new CustomError({ name: "Database_Error" }));
   }
 };

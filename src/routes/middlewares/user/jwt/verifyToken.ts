@@ -3,12 +3,15 @@ import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import CustomError from "../../error/customError";
 
-const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const decoded = jwt.verify(req.body.token, String(process.env.JWT_SECRET));
     res.locals.user = decoded;
     next();
   } catch (error) {
+    if (error.name === "JsonWebTokenError") {
+      next(new CustomError({ name: "Token_Not_Valid" }));
+    }
     next(new CustomError({ name: "Not_User" }));
   }
 };
