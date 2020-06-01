@@ -7,8 +7,13 @@ import {
   Column,
   DataType,
   HasMany,
+  ForeignKey,
+  BelongsTo,
+  HasOne,
 } from "sequelize-typescript";
+
 import Location from "./Location.model";
+import Store from "./Store.model";
 
 @Table({
   timestamps: true,
@@ -19,6 +24,11 @@ export default class User extends Model<User> {
   @AllowNull(false)
   @Column(DataType.INTEGER)
   id!: number;
+
+  @ForeignKey(() => Store)
+  @AllowNull(false)
+  @Column(DataType.INTEGER)
+  storeId?: number;
 
   @AllowNull(false)
   @Column(DataType.STRING)
@@ -38,4 +48,7 @@ export default class User extends Model<User> {
 
   @HasMany(() => Location)
   location?: Location[];
+
+  @HasOne(() => Store)
+  store?: Store;
 }
