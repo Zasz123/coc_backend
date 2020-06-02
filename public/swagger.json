@@ -323,6 +323,29 @@
             "type": "string"
           }
         }
+      },
+      "donate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "storeId": {
+            "type": "integer"
+          },
+          "constributions": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
       }
     }
   },

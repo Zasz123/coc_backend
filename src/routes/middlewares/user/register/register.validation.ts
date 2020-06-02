@@ -4,7 +4,7 @@ const RegisterValidator: ValidationChain[] = [
   body("accountId").exists(),
   body("password").exists(),
   body("name").exists(),
-  body("type").exists().isIn(["normal", "confirmed", "shopkeeper"]),
+  body("type").exists().isIn(["normal", "shopkeeper"]),
 ];
 
 export default RegisterValidator;

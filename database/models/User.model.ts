@@ -10,6 +10,7 @@ import {
   ForeignKey,
   BelongsTo,
   HasOne,
+  Default,
 } from "sequelize-typescript";
 
 import Location from "./Location.model";
@@ -26,7 +27,7 @@ export default class User extends Model<User> {
   id!: number;
 
   @ForeignKey(() => Store)
-  @AllowNull(false)
+  @AllowNull(true)
   @Column(DataType.INTEGER)
   storeId?: number;
 
@@ -43,8 +44,13 @@ export default class User extends Model<User> {
   name!: string;
 
   @AllowNull(false)
-  @Column(DataType.ENUM("normal", "confirmed", "shopkeeper"))
-  type!: "normal" | "confirmed" | "shopkeeper";
+  @Column(DataType.ENUM("normal", "shopkeeper"))
+  type!: "normal" | "shopkeeper";
+
+  @AllowNull(false)
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  isInfected!: boolean;
 
   @HasMany(() => Location)
   location?: Location[];

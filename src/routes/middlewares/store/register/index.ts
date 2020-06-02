@@ -10,6 +10,19 @@ const RegisterStore = async (
   const user = res.locals.user;
   try {
     const { businessNumber, longitude, latitude } = req.body;
+    const existStore = await Store.findOne({
+      where: {
+        userId: user.uid,
+      },
+    });
+
+    if (existStore) {
+      res.json({
+        success: true,
+        message: "해당 계정에 이미 상점이 등록되었있습니다.",
+      });
+    }
+
     const createdStore = await Store.create({
       userId: user.uid,
       businessNumber,
