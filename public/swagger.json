@@ -13,6 +13,14 @@
     {
       "name": "location",
       "description": "location api"
+    },
+    {
+      "name": "store",
+      "description": "store api"
+    },
+    {
+      "name": "donate",
+      "description": "donate api"
     }
   ],
   "paths": {
@@ -263,6 +271,51 @@
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store": {
+      "post": {
+        "tags": ["store"],
+        "summary": "내 상점 등록",
+        "requestBody": {
+          "description": "나의 상점의 위치를 등록하는 api",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "type": "integer"
+                  },
+                  "latitude": {
+                    "type": "integer"
+                  },
+                  "businessNumber": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
                     }
                   }
                 }

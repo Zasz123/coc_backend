@@ -8,8 +8,8 @@ const RegisterStore = async (
   next: NextFunction
 ) => {
   const user = res.locals.user;
+  const { businessNumber, longitude, latitude } = req.body;
   try {
-    const { businessNumber, longitude, latitude } = req.body;
     const existStore = await Store.findOne({
       where: {
         userId: user.uid,
