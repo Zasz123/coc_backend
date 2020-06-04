@@ -121,15 +121,20 @@
       "patch": {
         "tags": ["user"],
         "summary": "정보 업데이트",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
         "requestBody": {
           "description": "사용자의 정보 업데이트",
           "content": {
             "application/json": {
               "schema": {
                 "properties": {
-                  "token": {
-                    "type": "string"
-                  },
                   "accountId": {
                     "type": "string"
                   },
@@ -154,15 +159,20 @@
       "post": {
         "tags": ["location"],
         "summary": "위치 저장",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
         "requestBody": {
-          "description": "사용자의 위도, 경도를 저장",
+          "description": "사용자의 위도, 경도를 저장및 주변 확진자 동선 불러오기",
           "content": {
             "application/json": {
               "schema": {
                 "properties": {
-                  "token": {
-                    "type": "string"
-                  },
                   "longitude": {
                     "type": "integer"
                   },
@@ -223,23 +233,17 @@
       }
     },
     "/location/my": {
-      "post": {
+      "get": {
         "tags": ["location"],
         "summary": "내 경로 보기",
-        "requestBody": {
-          "description": "요청보낸 사용자의 경로 보기",
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "token": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "성공",
@@ -280,19 +284,63 @@
         }
       }
     },
+    "/store/:id": {
+      "get": {
+        "tags": ["store"],
+        "summary": "특정 상점 보기",
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "store": {
+                      "$ref": "#/components/schemas/Store"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store/my": {
+      "get": {
+        "tags": ["store"],
+        "summary": "내 상점 보기",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ]
+      }
+    },
     "/store": {
       "post": {
         "tags": ["store"],
         "summary": "내 상점 등록",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
         "requestBody": {
           "description": "나의 상점의 위치를 등록하는 api",
           "content": {
             "application/json": {
               "schema": {
                 "properties": {
-                  "token": {
-                    "type": "string"
-                  },
                   "longitude": {
                     "type": "integer"
                   },
@@ -316,6 +364,220 @@
                   "properties": {
                     "success": {
                       "type": "boolean"
+                    },
+                    "createdStore": {
+                      "$ref": "#/components/schemas/Store"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store/near": {
+      "post": {
+        "tags": ["store"],
+        "summary": "내 주변 상점 불러오기",
+        "requestBody": {
+          "description": "내 주변에 있는 상점 불러오는 API (POST인 이유는 body로 위도, 경도를 보내야 하기 때문)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "nearbyStores": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Store"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store/update": {
+      "patch": {
+        "tags": ["store"],
+        "summary": "상점 업데이트",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "나의 상점을 업데이트하는 API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "longitude": {
+                    "type": "integer"
+                  },
+                  "latitude": {
+                    "type": "integer"
+                  },
+                  "businessNumber": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "updatedStore": {
+                      "$ref": "#/components/schemas/Store"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store/delete": {
+      "delete": {
+        "tags": ["store"],
+        "summary": "내 상점 삭제",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/donate": {
+      "post": {
+        "tags": ["donate"],
+        "summary": "기부",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "특정 상점에 기부하는 API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "constributions": {
+                    "type": "number"
+                  },
+                  "storeId": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/donate/my": {
+      "get": {
+        "tags": ["donate"],
+        "summary": "기부 내역",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "myLogs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DonationLogs"
+                      }
                     }
                   }
                 }
@@ -377,7 +639,33 @@
           }
         }
       },
-      "donate": {
+      "Store": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "businessNumber": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "integer"
+          },
+          "longitude": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Donate": {
         "type": "object",
         "properties": {
           "id": {
@@ -391,6 +679,29 @@
           },
           "constributions": {
             "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "DonationLogs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "storeId": {
+            "type": "number"
+          },
+          "constributions": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string"

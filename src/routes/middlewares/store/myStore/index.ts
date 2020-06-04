@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from "express";
+
 import CustomError from "../../error/customError";
 import Store from "../../../../../database/models/Store.model";
 
-const DeleteStore = async (req: Request, res: Response, next: NextFunction) => {
+const ShowMyStore = async (req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user;
   try {
-    await Store.destroy({
+    const MyStore = await Store.findOne({
       where: {
         userId: user.uid,
       },
@@ -13,10 +14,11 @@ const DeleteStore = async (req: Request, res: Response, next: NextFunction) => {
 
     res.json({
       success: true,
+      store: MyStore || "You Don't have Store",
     });
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));
   }
 };
 
-export default DeleteStore;
+export default ShowMyStore;

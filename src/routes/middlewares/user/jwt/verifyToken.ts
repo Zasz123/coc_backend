@@ -5,7 +5,14 @@ import CustomError from "../../error/customError";
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const decoded = jwt.verify(req.body.token, String(process.env.JWT_SECRET));
+    if (typeof req.headers.token !== "string") {
+      return next(new CustomError({ name: "Token_Not_Valid" }));
+    }
+
+    const decoded = jwt.verify(
+      req.headers.token,
+      String(process.env.JWT_SECRET)
+    );
     res.locals.user = decoded;
     next();
   } catch (error) {

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import CustomError from "../../error/customError";
-import UserStoreDonate from "../../../../../database/models/UserStoreDonate";
+import UserStoreDonate from "../../../../../database/models/UserStoreDonate.model";
 
 const ShowMyLogs = async (req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user;

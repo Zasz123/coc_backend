@@ -2,21 +2,29 @@ import { Request, Response, NextFunction } from "express";
 import CustomError from "../../error/customError";
 import Store from "../../../../../database/models/Store.model";
 
-const DeleteStore = async (req: Request, res: Response, next: NextFunction) => {
-  const user = res.locals.user;
+const ShowStore = async (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
   try {
-    await Store.destroy({
+    const store = await Store.findOne({
       where: {
-        userId: user.uid,
+        id,
       },
     });
 
+    if (!store) {
+      res.json({
+        success: true,
+        message: "Store not exist",
+      });
+    }
+
     res.json({
       success: true,
+      store,
     });
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));
   }
 };
 
-export default DeleteStore;
+export default ShowStore;

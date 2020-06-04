@@ -16,7 +16,7 @@ router.post("/", InsertValidation);
 
 router.use(CheckValidation);
 
+router.get("/my", VerifyToken, ShowMyLocation);
 router.post("/", VerifyToken, CheckLocation, InsertLocation);
-router.post("/my", VerifyToken, ShowMyLocation);
 
 export default router;
