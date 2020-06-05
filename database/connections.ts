@@ -7,6 +7,7 @@ const sequelize = new Sequelize({
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
+  timezone: "+09:00",
   define: {
     charset: "utf8",
   },
