@@ -8,15 +8,20 @@ import VerifyToken from "../middlewares/user/jwt/verifyToken";
 
 import InsertLocation from "../middlewares/location/insertLocation";
 import ShowMyLocation from "../middlewares/location/showMyLocation";
-import CheckLocation from "../middlewares/location/insertLocation/locationCheck";
+import ConfirmerLocation from '../middlewares/location/confirmerLocation';
 
+import ConfirmerValidation from '../middlewares/location/confirmerLocation';
 import InsertValidation from "../middlewares/location/insertLocation";
 
 router.post("/", InsertValidation);
+router.post("/confirmer", ConfirmerValidation);
 
 router.use(CheckValidation);
 
-router.get("/my", VerifyToken, ShowMyLocation);
-router.post("/", VerifyToken, CheckLocation, InsertLocation);
+router.use(VerifyToken);
+
+router.get("/my", ShowMyLocation);
+router.post("/", InsertLocation);
+router.post("/confirmer", ConfirmerLocation)
 
 export default router;

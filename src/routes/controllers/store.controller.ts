@@ -21,11 +21,14 @@ router.post("/near", NearbyValidation);
 
 router.use(CheckValidation);
 
-router.get("/:id", VerifyToken, ShowStore);
-router.get("/my", VerifyToken, ShowMyStore);
 router.post("/near", NearbyStore);
-router.post("/", VerifyToken, RegisterStore);
-router.patch("/update", VerifyToken, UpdateStore);
-router.delete("/delete", VerifyToken, DeleteStore);
+
+router.use(VerifyToken);
+
+router.get("/:id", ShowStore);
+router.get("/my", ShowMyStore);
+router.post("/", RegisterStore);
+router.patch("/update", UpdateStore);
+router.delete("/delete", DeleteStore);
 
 export default router;

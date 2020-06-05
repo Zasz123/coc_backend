@@ -15,7 +15,9 @@ router.post("/", DonationValidation);
 
 router.use(CheckValidator);
 
-router.get("/my", VerifyToken, ShowMyLogs);
-router.post("/", VerifyToken, Donation);
+router.use(VerifyToken);
+
+router.get("/my", ShowMyLogs);
+router.post("/", Donation);
 
 export default router;

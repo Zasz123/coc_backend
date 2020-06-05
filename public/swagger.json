@@ -284,6 +284,51 @@
         }
       }
     },
+    "/location/confirmer": {
+      "post": {
+        "tags": ["location"],
+        "summary": "확진자 동선 가져오기",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "헤더 안에 토큰 넣으셈",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "경도, 위도를 입력해서 확진자의 동선을 가져오는 API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "longitude": {
+                    "type": "integer"
+                  },
+                  "latitude": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/store/:id": {
       "get": {
         "tags": ["store"],

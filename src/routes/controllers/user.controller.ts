@@ -23,6 +23,9 @@ router.use(CheckValidation);
 
 router.post("/login", Login, MakeToken);
 router.post("/register", Register);
-router.patch("/update", VerifyToken, Update);
+
+router.use(VerifyToken);
+
+router.patch("/update", Update);
 
 export default router;

@@ -33,8 +33,11 @@ const LocationCheck = async (
         },
       ],
     });
-
-    next(overlapLocations);
+    
+    res.json({
+      success: true,
+      overlapLocations
+    })
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));
   }
