@@ -320,7 +320,38 @@
               "application/json": {
                 "schema": {
                   "properties": {
-                    
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "overlapLocations": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "location": {
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "longitude": {
+                                  "type": "integer"
+                                },
+                                "latitude": {
+                                  "type": "integer"
+                                },
+                                "createdAt": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }

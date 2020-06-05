@@ -7,15 +7,14 @@ const UpdateInfo = async (req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user;
   try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
-    const updatedUser = await User.update(req.body, {
+    await User.update(req.body, {
       where: {
         id: user.uid,
       },
     });
 
     res.json({
-      success: false,
-      updatedUser,
+      success: true,
     });
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));

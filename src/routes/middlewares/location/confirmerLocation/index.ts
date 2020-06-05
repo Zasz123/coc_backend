@@ -14,9 +14,6 @@ const LocationCheck = async (
     const overlapLocations = await User.findAll({
       where: {
         isInfected: true,
-        id: {
-          [Op.not]: res.locals.user.uid,
-        },
       },
       attributes: ["id"],
       include: [
