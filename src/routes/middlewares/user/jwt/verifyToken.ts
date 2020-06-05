@@ -5,7 +5,7 @@ import CustomError from "../../error/customError";
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (typeof req.headers.token !== "string") {
+    if (!req.headers.token || typeof req.headers.token !== "string") {
       return next(new CustomError({ name: "Token_Not_Valid" }));
     }
 

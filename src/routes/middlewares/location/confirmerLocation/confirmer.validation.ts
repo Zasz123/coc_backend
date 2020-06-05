@@ -5,4 +5,4 @@ const ConfirmerValidation: ValidationChain[] = [
     body("latitude").exists()
 ]
 
-export default COnfirmerValidation
+export default ConfirmerValidation;

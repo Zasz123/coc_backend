@@ -10,8 +10,8 @@ import InsertLocation from "../middlewares/location/insertLocation";
 import ShowMyLocation from "../middlewares/location/showMyLocation";
 import ConfirmerLocation from '../middlewares/location/confirmerLocation';
 
-import ConfirmerValidation from '../middlewares/location/confirmerLocation';
-import InsertValidation from "../middlewares/location/insertLocation";
+import ConfirmerValidation from '../middlewares/location/confirmerLocation/confirmer.validation';
+import InsertValidation from "../middlewares/location/insertLocation/locationVaildation";
 
 router.post("/", InsertValidation);
 router.post("/confirmer", ConfirmerValidation);
