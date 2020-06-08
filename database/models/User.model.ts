@@ -8,13 +8,13 @@ import {
   DataType,
   HasMany,
   ForeignKey,
-  BelongsTo,
   HasOne,
   Default,
 } from "sequelize-typescript";
 
 import Location from "./Location.model";
 import Store from "./Store.model";
+import Alam from "./Alam.model";
 
 @Table({
   timestamps: true,
@@ -54,6 +54,9 @@ export default class User extends Model<User> {
 
   @HasMany(() => Location)
   location?: Location[];
+
+  @HasMany(() => Alam)
+  alam?: Alam[];
 
   @HasOne(() => Store)
   store?: Store;
