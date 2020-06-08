@@ -3,12 +3,12 @@ import CustomError from "../../error/customError";
 import Location from "../../../../../database/models/Location.model";
 
 const InsertLocation = async (
-  overlapUsers: any,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const user = res.locals.user;
+  console.log(user)
   const { longitude, latitude } = req.body;
   try {
     const createdLocation = await Location.create({
@@ -20,7 +20,6 @@ const InsertLocation = async (
     res.json({
       success: true,
       createdLocation,
-      overlapUsers,
     });
   } catch (error) {
     console.log(error);

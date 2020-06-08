@@ -14,9 +14,6 @@ const LocationCheck = async (
     const overlapLocations = await User.findAll({
       where: {
         isInfected: true,
-        id: {
-          [Op.not]: res.locals.user.uid,
-        },
       },
       attributes: ["id"],
       include: [
@@ -33,8 +30,11 @@ const LocationCheck = async (
         },
       ],
     });
-
-    next(overlapLocations);
+    
+    res.json({
+      success: true,
+      overlapLocations
+    })
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));
   }
