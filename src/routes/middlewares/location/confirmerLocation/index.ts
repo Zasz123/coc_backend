@@ -12,7 +12,7 @@ const LocationCheck = async (
   next: NextFunction
 ) => {
   const { longitude, latitude } = req.body;
-  const distance = "0.3";
+  const distance = "5";
   try {
     const user = await User.findOne({
       where: {
@@ -35,7 +35,7 @@ const LocationCheck = async (
       include: [
         {
           model: Location,
-          attributes: ["id", "longitude", "latitude", "createdAt"],
+          attributes: ["longitude", "latitude"],
           where: where(
             literal(
               `6371 * acos(cos(radians(${latitude})) * cos(radians(latitude)) * cos(radians(${longitude}) - radians(longitude)) + sin(radians(${latitude})) * sin(radians(latitude)))`
@@ -43,6 +43,9 @@ const LocationCheck = async (
             "<=",
             distance
           ),
+          order: [
+            ['createdAt', 'DESC']
+          ]
         },
       ],
     });
@@ -72,6 +75,7 @@ const LocationCheck = async (
       overlapLocations,
     });
   } catch (error) {
+    console.log(error)
     next(new CustomError({ name: "Database_Error" }));
   }
 };
