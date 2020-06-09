@@ -52,6 +52,10 @@ export default class User extends Model<User> {
   @Column(DataType.BOOLEAN)
   isInfected!: boolean;
 
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  fcmToken!: string;
+
   @HasMany(() => Location)
   location?: Location[];
 

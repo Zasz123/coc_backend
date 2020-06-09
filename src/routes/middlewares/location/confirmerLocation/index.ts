@@ -3,6 +3,8 @@ import CustomError from "../../error/customError";
 import User from "../../../../../database/models/User.model";
 import Location from "../../../../../database/models/Location.model";
 import { literal, where, Op } from "sequelize";
+import * as admin from "firebase-admin";
+import Alam from "../../../../../database/models/Alam.model";
 
 const LocationCheck = async (
   req: Request,
@@ -10,10 +12,24 @@ const LocationCheck = async (
   next: NextFunction
 ) => {
   const { longitude, latitude } = req.body;
+  const distance = "0.3";
   try {
+    const user = await User.findOne({
+      where: {
+        id: res.locals.user.uid,
+      },
+    });
+
+    if (!user) {
+      return next(new CustomError({ name: "Not_User" }));
+    }
+
     const overlapLocations = await User.findAll({
       where: {
         isInfected: true,
+        [Op.not]: {
+          userId: user.id,
+        },
       },
       attributes: ["id"],
       include: [
@@ -25,16 +41,36 @@ const LocationCheck = async (
               `6371 * acos(cos(radians(${latitude})) * cos(radians(latitude)) * cos(radians(${longitude}) - radians(longitude)) + sin(radians(${latitude})) * sin(radians(latitude)))`
             ),
             "<=",
-            "5"
+            distance
           ),
         },
       ],
     });
-    
+
+    if (overlapLocations.length !== 0) {
+      const message = {
+        notification: {
+          title: "확진자와 동선이 겹쳤습니다!",
+          body: `현재 ${
+            Number(distance) * 1000
+          } 반경 내에 확진자의 동선이 있습니다.`,
+        },
+      };
+
+      await Alam.create({
+        userId: user.fcmToken,
+        title: message.notification.title,
+        message: message.notification.body,
+      });
+
+      const sendedMessage = await admin.messaging().sendToDevice("", message);
+      console.log(sendedMessage);
+    }
+
     res.json({
       success: true,
-      overlapLocations
-    })
+      overlapLocations,
+    });
   } catch (error) {
     next(new CustomError({ name: "Database_Error" }));
   }
