@@ -61,7 +61,7 @@ const LocationCheck = async (
       };
 
       await Alam.create({
-        userId: user.fcmToken,
+        userId: user.id,
         title: message.notification.title,
         message: message.notification.body,
       });
