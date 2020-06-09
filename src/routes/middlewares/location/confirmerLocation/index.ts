@@ -28,7 +28,7 @@ const LocationCheck = async (
       where: {
         isInfected: true,
         [Op.not]: {
-          userId: user.id,
+          id: user.id,
         },
       },
       attributes: ["id"],
