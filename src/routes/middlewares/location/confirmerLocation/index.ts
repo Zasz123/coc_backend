@@ -66,8 +66,9 @@ const LocationCheck = async (
         message: message.notification.body,
       });
 
-      const sendedMessage = await admin.messaging().sendToDevice("", message);
-      console.log(sendedMessage);
+      if(user.fcmToken) {
+        const sendedMessage = await admin.messaging().sendToDevice(user.fcmToken, message);
+      }
     }
 
     res.json({
