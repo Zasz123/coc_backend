@@ -16,6 +16,7 @@ const LocationCheck = async (
 ) => {
   const { longitude, latitude, pushToken } = req.body;
   const distance = "5";
+  console.log(req.body);
   try {
     const user = await User.findOne({
       where: {
