@@ -3,7 +3,7 @@ import CustomError from "../../error/customError";
 import User from "../../../../../database/models/User.model";
 import Location from "../../../../../database/models/Location.model";
 import { literal, where, Op } from "sequelize";
-import * as admin from "firebase-admin";
+
 import Alam from "../../../../../database/models/Alam.model";
 import { Expo, ExpoPushMessage } from 'expo-server-sdk';
 
@@ -54,7 +54,19 @@ const LocationCheck = async (
       ],
     });
 
-    if (overlapLocations.length !== 0) {
+    const now = new Date()
+    const MINUTE = now.setMinutes(now.getMinutes() - 3);
+
+    const latelyAlams = await Alam.findAll({
+      where: {
+        userId: user.id,
+        createdAt: {
+          [Op.gte]: MINUTE
+        }
+      }
+    });
+
+    if (overlapLocations.length !== 0 && latelyAlams.length === 0) {
       const message: Array<ExpoPushMessage> = [];
       message.push({
         to: pushToken,
