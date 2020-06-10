@@ -5,13 +5,16 @@ import Location from "../../../../../database/models/Location.model";
 import { literal, where, Op } from "sequelize";
 import * as admin from "firebase-admin";
 import Alam from "../../../../../database/models/Alam.model";
+import { Expo, ExpoPushMessage } from 'expo-server-sdk';
+
+const expo = new Expo();
 
 const LocationCheck = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { longitude, latitude } = req.body;
+  const { longitude, latitude, pushToken } = req.body;
   const distance = "5";
   try {
     const user = await User.findOne({
@@ -51,24 +54,21 @@ const LocationCheck = async (
     });
 
     if (overlapLocations.length !== 0) {
-      const message = {
-        notification: {
-          title: "확진자와 동선이 겹쳤습니다!",
-          body: `현재 ${
-            Number(distance) * 1000
-          } 반경 내에 확진자의 동선이 있습니다.`,
-        },
-      };
+      const message: Array<ExpoPushMessage> = [];
+      message.push({
+        to: pushToken,
+        sound: "default",
+        title: "확진자와 동선이 겹쳤습니다.",
+        body: "확진자와 동선이 겹쳤습니다. 이동경로를 변경해주세요."
+      })
 
+      const push = await expo.sendPushNotificationsAsync(message);
+      console.log(push);
       await Alam.create({
         userId: user.id,
-        title: message.notification.title,
-        message: message.notification.body,
+        title: message[0].title,
+        message: message[0].body,
       });
-
-      if(user.fcmToken) {
-        const sendedMessage = await admin.messaging().sendToDevice(user.fcmToken, message);
-      }
     }
 
     res.json({

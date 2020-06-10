@@ -4,8 +4,6 @@ import * as cors from "cors";
 import * as helmet from "helmet";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
-import * as admin from "firebase-admin";
-const serviceAccount = require("../secret/cocfire-firebase-adminsdk-ns7rx-63888af314.json");
 
 import ErrorMiddleware from "./routes/middlewares/error/errorMiddlewares";
 import CustomError from "./routes/middlewares/error/customError";
@@ -15,11 +13,6 @@ import rootController from "./routes/rootColtroller";
 const app: express.Application = express();
 
 const dir = path.join(__dirname, "../public");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.FIREBASE_DB_URL
-});
 
 app.use(cors());
 app.use(logger("dev"));
