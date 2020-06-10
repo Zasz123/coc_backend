@@ -8,7 +8,6 @@ const InsertLocation = async (
   next: NextFunction
 ) => {
   const user = res.locals.user;
-  console.log(user)
   const { longitude, latitude } = req.body;
   try {
     const createdLocation = await Location.create({

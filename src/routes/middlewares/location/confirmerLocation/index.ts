@@ -66,7 +66,8 @@ const LocationCheck = async (
       }
     });
 
-    if (overlapLocations.length !== 0 && latelyAlams.length === 0) {
+    // if (overlapLocations.length !== 0 && latelyAlams.length === 0) {
+      if (overlapLocations.length !== 0) {
       const message: Array<ExpoPushMessage> = [];
       message.push({
         to: pushToken,
